@@ -20,6 +20,7 @@ services:
         branch: "dev"
     volumes:
       - project:/srv/crn-app/dist
+    env_file: ./config.env
 
   # crn core (bids-core)
   core:
