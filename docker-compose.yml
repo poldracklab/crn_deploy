@@ -1,0 +1,50 @@
+# docker compose versions
+version: '2'
+
+# shared volumes
+volumes:
+  project:
+  data:
+
+services:
+
+  # mongodb
+  mongo:
+    image: mongo
+
+  # web app bundle build
+  app:
+    build:
+      context: ./app
+      args:
+        branch: "dev"
+    volumes:
+      - project:/srv/crn-app/dist
+
+  # crn core (bids-core)
+  core:
+    build: ./core
+    volumes:
+      - data:/srv/bids-core/persistent/data
+    env_file: ./config.env
+    restart: always
+
+  # crn node server
+  server:
+    build:
+      context: ./server
+      args:
+        branch: "dev"
+    volumes:
+      - data:/srv/bids-core/persistent/data
+    env_file: ./config.env
+    restart: always
+
+  # nginx - static file serving and service proxy
+  nginx:
+    build: ./nginx
+    volumes:
+      - project:/srv/crn-app/dist
+    ports:
+      - "9876:80"
+      - "8443:443"
