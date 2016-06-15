@@ -1,4 +1,4 @@
-# CRN - Docker Compose
+# CRN - Docker Deployment
 
 This repository contains a docker configuration setup to build the full CRN stack. This includes:
 - [bids-core](https://github.com/poldracklab/bids-core)
