@@ -16,4 +16,4 @@ RUN npm install -g gulp-cli
 COPY config.js /srv/crn-app/
 
 # build app
-RUN gulp build
+CMD gulp build
