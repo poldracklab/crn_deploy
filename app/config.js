@@ -7,14 +7,14 @@ export default {
 		 * Scitran
 		 */
 		scitran: {
-			url: 'http://localhost:9876/api/'
+			url: process.env.CRN_SERVER_URL + '/api/'
 		},
 
 		/**
 		 * CRN
 		 */
 		crn: {
-			url: 'http://localhost:9876/crn/'
+			url: process.env.CRN_SERVER_URL + '/crn/'
 		},
 
 		/**
