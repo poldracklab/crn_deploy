@@ -46,5 +46,5 @@ services:
     volumes:
       - project:/srv/crn-app/dist
     ports:
-      - "9876:80"
-      - "8443:443"
+      - "80:80"
+      - "443:443"
