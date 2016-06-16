@@ -4,7 +4,6 @@ version: '2'
 # shared volumes
 volumes:
   project:
-  data:
 
 services:
 
@@ -26,7 +25,7 @@ services:
   core:
     build: ./core
     volumes:
-      - data:/srv/bids-core/persistent/data
+      - /srv/bids-core/persistent/data:/srv/bids-core/persistent/data
     env_file: ./config.env
     restart: always
 
@@ -37,7 +36,8 @@ services:
       args:
         branch: "dev"
     volumes:
-      - data:/srv/bids-core/persistent/data
+      - /srv/bids-core/persistent/data:/srv/bids-core/persistent/data
+      - /srv/crn-server/persistent:/srv/crn-server/persistent
     env_file: ./config.env
     restart: always
 
