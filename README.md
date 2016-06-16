@@ -37,6 +37,10 @@ You must configure the system by copying `config.env.example` to `config.env` fi
 
 Additionally, the default build will pull the current dev branch from the related repositories, but you can change this by modifying the "branch" build argument for the `app` or `server` in the docker-compose.yml file.
 
+If you would like to be able to expose datasets over SFTP to AGAVE you must create the following empty direcotries on your host machine to allow file sharing between the containers and your host.
+- `/srv/bids-core/persistent/data`
+- `/srv/crn-server/persistent`
+
 ## Usage
 
 To build the CRN stack you must first install [docker](https://www.docker.com/). Once you've updated the configuration, from the root of this project you can run `docker-compose build` to build all of the containers. This may take a while. Once your containers are built you can run `docker-compose up` and the application will be available at the localhost's port 80.
