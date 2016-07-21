@@ -34,6 +34,9 @@ You must configure the system by copying `config.env.example` to `config.env` fi
 | CRN_SERVER_AGAVE_CONSUMER_KEY       | The AGAVE client API key                                |
 | CRN_SERVER_AGAVE_CONSUMER_SECRET    | The AGAVE client API secret                             |
 | CRN_SERVER_AGAVE_STORAGE            | The root path of the associated AGAVE storage system    |
+| CRN_SERVER_MAIL_SERVICE             | The name of the mail service for email notifications    |
+| CRN_SERVER_MAIL_USER                | The username for the mail service                       |
+| CRN_SERVER_MAIL_PASS                | The password for the mail service                       |
 
 Additionally, the default build will pull the current dev branch from the related repositories, but you can change this by modifying the "branch" build argument for the `app` or `server` in the docker-compose.yml file.
 
