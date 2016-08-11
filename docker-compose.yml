@@ -16,7 +16,7 @@ services:
     build:
       context: ./app
       args:
-        branch: "dev"
+        branch: "${CRN_BRANCH}"
     volumes:
       - project:/srv/crn-app/dist
     env_file: ./config.env
@@ -34,7 +34,7 @@ services:
     build:
       context: ./server
       args:
-        branch: "dev"
+        branch: "${CRN_BRANCH}"
     volumes:
       - /srv/bids-core/persistent/data:/srv/bids-core/persistent/data
       - /srv/crn-server/persistent:/srv/crn-server/persistent
