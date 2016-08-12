@@ -9,7 +9,9 @@ This repository contains a docker configuration setup to build the full CRN stac
 
 ## Configuration
 
-You must configure the system by copying `config.env.example` to `config.env` filling in any empty values. Other values may be modified, but changes to the defaults could cause issues. Below is a list of descriptions of each variable.
+You must configure the system by copying `config.env.example` to `config.env` and `.env` to `.env.example` and filling in any empty values. Other values may be modified, but changes to the defaults could cause issues. Below is a list of descriptions of each variable.
+
+### config.env
 
 | variable                            | description                                             |
 |-------------------------------------|---------------------------------------------------------|
@@ -23,8 +25,6 @@ You must configure the system by copying `config.env.example` to `config.env` fi
 | SCITRAN_AUTH_VERIFY_ENDPOINT        | The OAuth verify endpoint of the auth provider          |
 |                                     |                                                         |
 | CRN_SERVER_URL                      | The url where this service is listening                 |
-| CRN_SERVER_LOCATION                 | The file system location of this repository             |
-| CRN_SERVER_MONGODB_URL              | The url where mongodb is listening                      |
 |                                     |                                                         |
 | CRN_SERVER_AGAVE_URL                | The root url to the AGAVE API                           |
 | CRN_SERVER_AGAVE_USERNAME           | An AGAVE API username                                   |
@@ -38,9 +38,16 @@ You must configure the system by copying `config.env.example` to `config.env` fi
 | CRN_SERVER_MAIL_USER                | The username for the mail service                       |
 | CRN_SERVER_MAIL_PASS                | The password for the mail service                       |
 
-Additionally, the default build will pull the current dev branch from the related repositories, but you can change this by modifying the "branch" build argument for the `app` or `server` in the docker-compose.yml file.
+### .env
 
-If you would like to be able to expose datasets over SFTP to AGAVE you must create the following empty direcotries on your host machine to allow file sharing between the containers and your host.
+| variable                            | description                                             |
+|-------------------------------------|---------------------------------------------------------|
+| CRN_BRANCH                          | The branch to build the CRN server and app from         |
+| BIDS_CORE_PERSISTENT_DIR            | The local directory to mount core persistent data to    |
+| CRN_SERVER_PERSISTENT_DIR           | The local directory to mount server persistent data to  |
+
+
+If you would like to be able to expose datasets over SFTP to AGAVE you must ensure your `BIDS_CORE_PERSISTENT_DIR` and `CRN_SERVER_PERSISTENT_DIR` are accessible as AGAVE storage systems.
 - `/srv/bids-core/persistent/data`
 - `/srv/crn-server/persistent`
 
