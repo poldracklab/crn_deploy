@@ -25,19 +25,17 @@ services:
   core:
     build: ./core
     volumes:
-      - /srv/bids-core/persistent/data:${BIDS_CORE_PERSISTENT_DIR}
+      - ${BIDS_CORE_PERSISTENT_DIR}:/srv/bids-core/persistent/data
     env_file: ./config.env
     restart: always
 
   # crn node server
   server:
-    build:
-      context: ./server
-      args:
-        branch: "${CRN_BRANCH}"
+    image: poldracklab/crn_server:${CRN_SERVER_TAG}
     volumes:
-      - /srv/bids-core/persistent/data:${BIDS_CORE_PERSISTENT_DIR}
-      - /srv/crn-server/persistent:${CRN_SERVER_PERSISTENT_DIR}
+      - ./server/client.config.js:/srv/crn-server/client.config.js:rw
+      - ${BIDS_CORE_PERSISTENT_DIR}:/srv/bids-core/persistent/data
+      - ${CRN_SERVER_PERSISTENT_DIR}:/srv/crn-server/persistent
     env_file: ./config.env
     restart: always
 
