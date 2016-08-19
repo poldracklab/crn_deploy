@@ -20,7 +20,7 @@ services:
 
   # crn core (bids-core)
   core:
-    build: ./core
+    image: poldracklab/bids-core:${BIDS_CORE_TAG}
     volumes:
       - ${BIDS_CORE_PERSISTENT_DIR}:/srv/bids-core/persistent/data
     env_file: ./config.env
