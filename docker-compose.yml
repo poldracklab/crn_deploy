@@ -13,10 +13,7 @@ services:
 
   # web app bundle build
   app:
-    build:
-      context: ./app
-      args:
-        branch: "${CRN_BRANCH}"
+    image: poldracklab/crn_app:${CRN_APP_TAG}
     volumes:
       - project:/srv/crn-app/dist
     env_file: ./config.env
