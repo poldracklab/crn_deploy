@@ -22,7 +22,7 @@ services:
   core:
     image: poldracklab/bids-core:${BIDS_CORE_TAG}
     volumes:
-      - ${BIDS_CORE_PERSISTENT_DIR}:/srv/bids-core/persistent/data
+      - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
     env_file: ./config.env
     restart: always
 
@@ -31,10 +31,20 @@ services:
     image: poldracklab/crn_server:${CRN_SERVER_TAG}
     volumes:
       - ./server/client.config.js:/srv/crn-server/client.config.js:rw
-      - ${BIDS_CORE_PERSISTENT_DIR}:/srv/bids-core/persistent/data
-      - ${CRN_SERVER_PERSISTENT_DIR}:/srv/crn-server/persistent
+      - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
+      - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
     env_file: ./config.env
     restart: always
+
+  # sftp access
+  sftp:
+    image: atmoz/sftp
+    volumes:
+      - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
+      - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
+    ports:
+      - "8111:22"
+    command: ${SFTP_USER}::1001
 
   # nginx - static file serving and service proxy
   nginx:
@@ -45,6 +55,7 @@ services:
       - project:/srv/crn-app/dist
     ports:
       - "80:80"
+      - "8110:8110"
       - "443:443"
     depends_on:
       - server
