@@ -42,6 +42,7 @@ services:
     volumes:
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
+      - /home/${SFTP_USER}:/home/${SFTP_USER}
     ports:
       - "8111:22"
     command: ${SFTP_USER}::1001
