@@ -40,9 +40,9 @@ services:
   sftp:
     image: atmoz/sftp
     volumes:
-      - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
-      - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
-      - /home/${SFTP_USER}:/home/${SFTP_USER}
+      - ${PERSISTENT_DIR}/bids-core/persistent/data:/home/${SFTP_USER}/srv/bids-core/persistent/data
+      - ${PERSISTENT_DIR}/crn-server/persistent:/home/${SFTP_USER}/srv/crn-server/persistent
+      - /home/${SFTP_USER}/.ssh/authorized_keys:/home/${SFTP_USER}/.ssh/keys/authorized_keys
     ports:
       - "8111:22"
     command: ${SFTP_USER}::1001
