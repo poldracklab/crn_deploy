@@ -43,8 +43,8 @@ You must configure the system by copying `config.env.example` to `config.env` an
 | variable                            | description                                             |
 |-------------------------------------|---------------------------------------------------------|
 | CRN_BRANCH                          | The branch to build the CRN server and app from         |
-| BIDS_CORE_PERSISTENT_DIR            | The local directory to mount core persistent data to    |
-| CRN_SERVER_PERSISTENT_DIR           | The local directory to mount server persistent data to  |
+| PERSISTENT_DIR                      | The local directory to mount persistent data to         |
+| SFTP_USER                           | The local user used for SFTP authentication             |
 
 
 If you would like to be able to expose datasets over SFTP to AGAVE you must ensure your `BIDS_CORE_PERSISTENT_DIR` and `CRN_SERVER_PERSISTENT_DIR` are accessible as AGAVE storage systems.
