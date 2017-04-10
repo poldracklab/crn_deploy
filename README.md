@@ -2,7 +2,7 @@
 
 This repository contains a docker configuration setup to build the full CRN stack. This includes:
 - [bids-core](https://github.com/poldracklab/bids-core)
-- [crn-app](https://github.com/poldracklab/crn_appmongodb.com - MongoDB Official Site‎)
+- [crn-app](https://github.com/poldracklab/crn_app)
 - [crn-server](https://github.com/poldracklab/crn_server)
 - [mongodb](https://www.mongodb.com/)
 - [nginx](https://nginx.org/)

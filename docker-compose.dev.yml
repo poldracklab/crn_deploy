@@ -1,0 +1,36 @@
+# docker compose versions
+version: '2'
+
+# shared volumes
+volumes:
+  project:
+
+services:
+  # web app bundle build
+  app:
+    image: poldracklab/crn_app:${CRN_APP_TAG}
+    command: gulp
+    volumes:
+      - ../crn_app:/srv/crn-app
+      - project:/srv/crn-app/dist
+
+  # crn core (bids-core)
+  core:
+    volumes:
+      - ../bids-core:/srv/bids-core
+      - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
+
+  # crn node server
+  server:
+    volumes:
+      - ../crn_server:/srv/crn-server
+      - ./server/client.config.js:/srv/crn-server/client.config.js:rw
+      - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
+      - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
+
+  # nginx - static file serving and service proxy
+  nginx:
+    ports:
+      - "9876:80"
+      - "8110:8110"
+      - "8443:443"
