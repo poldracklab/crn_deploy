@@ -9,7 +9,7 @@ services:
   # web app bundle build
   app:
     image: poldracklab/crn_app:${CRN_APP_TAG}
-    command: gulp
+    command: bash -c "npm install && gulp --env=dev"
     volumes:
       - ../crn_app:/srv/crn-app
       - project:/srv/crn-app/dist
