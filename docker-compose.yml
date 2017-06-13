@@ -55,6 +55,7 @@ services:
       - ./nginx/.htpasswd:/etc/nginx/.htpasswd:ro
       - project:/srv/crn-app/dist
       - ./acme:/acme
+      - ${SSL_DIR}:/etc/nginx/ssl
     ports:
       - "80:80"
       - "8110:8110"
