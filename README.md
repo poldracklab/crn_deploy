@@ -37,6 +37,12 @@ You must configure the system by copying `config.env.example` to `config.env` an
 | CRN_SERVER_MAIL_SERVICE             | The name of the mail service for email notifications    |
 | CRN_SERVER_MAIL_USER                | The username for the mail service                       |
 | CRN_SERVER_MAIL_PASS                | The password for the mail service                       |
+| AWS_ACCESS_KEY_ID                   | Access key id for AWS account                           |
+| AWS_SECRET_ACCESS_KEY               | Secret Access Key for AWS account                       |
+| AWS_REGION                          | AWS region                                              |
+| AWS_S3_DATASET_BUCKET               | S3 bucket name where datasets are stored                |
+| AWS_S3_ANALYSIS_BUCKET              | S3 bucket name where job output is stored               |
+| GOOGLE_TRACKING_ID                  | Google Analytics tracking ID                            |
 
 ### .env
 
