@@ -42,6 +42,7 @@ You must configure the system by copying `config.env.example` to `config.env` an
 | AWS_REGION                          | AWS region                                              |
 | AWS_S3_DATASET_BUCKET               | S3 bucket name where datasets are stored                |
 | AWS_S3_ANALYSIS_BUCKET              | S3 bucket name where job output is stored               |
+| AWS_BATCH_QUEUE                     | Job Queue name on AWS batch                             |
 | GOOGLE_TRACKING_ID                  | Google Analytics tracking ID                            |
 
 ### .env
