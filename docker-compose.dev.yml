@@ -28,12 +28,12 @@ services:
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
 
-  # sftp access override. The paths in the docker-compose.yml has Linux paths
-  sftp:
+  worker:
     volumes:
-      - ${PERSISTENT_DIR}/bids-core/persistent/data:/home/${SFTP_USER}/srv/bids-core/persistent/data
-      - ${PERSISTENT_DIR}/crn_server/persistent:/home/${SFTP_USER}/srv/crn-server/persistent
-      - /Users/${SFTP_USER}/.ssh/authorized_keys:/home/${SFTP_USER}/.ssh/keys/authorized_keys
+      - ../crn_server:/srv/crn-server
+      - ./server/client.config.js:/srv/crn-server/client.config.js:rw
+      - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
+      - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
 
   # nginx - static file serving and service proxy
   nginx:

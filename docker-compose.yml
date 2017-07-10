@@ -11,6 +11,10 @@ services:
   mongo:
     image: mongo
 
+  # Redis
+  redis:
+    image: redis:alpine
+
   # web app bundle build
   app:
     image: poldracklab/crn_app:${CRN_APP_TAG}
@@ -29,6 +33,19 @@ services:
   # crn node server
   server:
     image: poldracklab/crn_server:${CRN_SERVER_TAG}
+    volumes:
+      - ./server/client.config.js:/srv/crn-server/client.config.js:rw
+      - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
+      - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
+    env_file: ./config.env
+    restart: always
+
+  # worker
+  worker:
+    image: poldracklab/crn_server:${CRN_SERVER_TAG}
+    command:
+      - node
+      - /srv/crn-server/worker.js
     volumes:
       - ./server/client.config.js:/srv/crn-server/client.config.js:rw
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
