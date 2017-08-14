@@ -8,10 +8,10 @@ volumes:
 services:
   # web app bundle build
   app:
-    image: poldracklab/crn_app:${CRN_APP_TAG}
+    image: openneuro/app:${CRN_APP_TAG}
     command: bash -c "npm install && gulp --env=dev"
     volumes:
-      - ../crn_app:/srv/crn-app
+      - ../openneuro/app:/srv/crn-app
       - project:/srv/crn-app/dist
 
   # crn core (bids-core)
@@ -23,14 +23,14 @@ services:
   # crn node server
   server:
     volumes:
-      - ../crn_server:/srv/crn-server
+      - ../openneuro/server:/srv/crn-server
       - ./server/client.config.js:/srv/crn-server/client.config.js:rw
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
 
   worker:
     volumes:
-      - ../crn_server:/srv/crn-server
+      - ../openneuro/server:/srv/crn-server
       - ./server/client.config.js:/srv/crn-server/client.config.js:rw
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent

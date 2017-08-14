@@ -17,7 +17,7 @@ services:
 
   # web app bundle build
   app:
-    image: poldracklab/crn_app:${CRN_APP_TAG}
+    image: openneuro/app:${CRN_APP_TAG}
     volumes:
       - project:/srv/crn-app/dist
     env_file: ./config.env
@@ -32,7 +32,7 @@ services:
 
   # crn node server
   server:
-    image: poldracklab/crn_server:${CRN_SERVER_TAG}
+    image: openneuro/server:${CRN_SERVER_TAG}
     volumes:
       - ./server/client.config.js:/srv/crn-server/client.config.js:rw
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
@@ -42,7 +42,7 @@ services:
 
   # worker
   worker:
-    image: poldracklab/crn_server:${CRN_SERVER_TAG}
+    image: openneuro/server:${CRN_SERVER_TAG}
     command:
       - node
       - /srv/crn-server/worker.js
