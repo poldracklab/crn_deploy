@@ -25,7 +25,7 @@ services:
 
   # crn node server
   server:
-    command: bash -c "yarn install && node /srv/crn-server/index.js"
+    command: bash -c "yarn install --mutex file:/srv/server_node_modules/.mutex && node /srv/crn-server/index.js"
     volumes:
       - ../openneuro/server:/srv/crn-server
       - server_node_modules:/srv/crn-server/node_modules
@@ -34,6 +34,7 @@ services:
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
 
   worker:
+    command: bash -c "yarn install --mutex file:/srv/server_node_modules/.mutex && node /srv/crn-server/worker.js"
     volumes:
       - ../openneuro/server:/srv/crn-server
       - server_node_modules:/srv/crn-server/node_modules
