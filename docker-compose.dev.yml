@@ -4,6 +4,8 @@ version: '2'
 # shared volumes
 volumes:
   project:
+  server_node_modules:
+  app_node_modules:
 
 services:
   # web app bundle build
@@ -12,6 +14,7 @@ services:
     command: bash -c "yarn install && gulp --env=dev"
     volumes:
       - ../openneuro/app:/srv/crn-app
+      - app_node_modules:/srv/crn-app/node_modules
       - project:/srv/crn-app/dist
 
   # crn core (bids-core)
@@ -22,8 +25,10 @@ services:
 
   # crn node server
   server:
+    command: bash -c "yarn install && node /srv/crn-server/index.js"
     volumes:
       - ../openneuro/server:/srv/crn-server
+      - server_node_modules:/srv/crn-server/node_modules
       - ./server/client.config.js:/srv/crn-server/client.config.js:rw
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
@@ -31,6 +36,7 @@ services:
   worker:
     volumes:
       - ../openneuro/server:/srv/crn-server
+      - server_node_modules:/srv/crn-server/node_modules
       - ./server/client.config.js:/srv/crn-server/client.config.js:rw
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
