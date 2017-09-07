@@ -12,7 +12,7 @@ services:
   # web app bundle build
   app:
     image: openneuro/app:${CRN_APP_TAG}
-    command: bash -c "yarn install && gulp --env=dev"
+    command: bash -c "yarn install && yarn start"
     volumes:
       - ../openneuro/app:/srv/crn-app
       - app_node_modules:/srv/crn-app/node_modules
