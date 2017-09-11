@@ -4,6 +4,7 @@ version: '2'
 # shared volumes
 volumes:
   project:
+  yarn_cache:
 
 services:
   # web app bundle build
@@ -12,7 +13,10 @@ services:
     command: bash -c "yarn install && gulp --env=dev"
     volumes:
       - ../openneuro/app:/srv/crn-app
+      - yarn_cache:/root/.cache
       - project:/srv/crn-app/dist
+    tmpfs:
+      - /srv/crn-app/node_modules
 
   # crn core (bids-core)
   core:
@@ -24,16 +28,22 @@ services:
   server:
     volumes:
       - ../openneuro/server:/srv/crn-server
+      - yarn_cache:/root/.cache
       - ./server/client.config.js:/srv/crn-server/client.config.js:rw
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
+    tmpfs:
+      - /srv/crn-server/node_modules
 
   worker:
     volumes:
       - ../openneuro/server:/srv/crn-server
+      - yarn_cache:/root/.cache
       - ./server/client.config.js:/srv/crn-server/client.config.js:rw
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
+    tmpfs:
+      - /srv/crn-server/node_modules
 
   # nginx - static file serving and service proxy
   nginx:
