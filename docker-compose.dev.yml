@@ -4,9 +4,7 @@ version: '2'
 # shared volumes
 volumes:
   project:
-  server_node_modules:
-  worker_node_modules:
-  app_node_modules:
+  yarn_cache:
 
 services:
   # web app bundle build
@@ -15,8 +13,10 @@ services:
     command: bash -c "yarn install && yarn start"
     volumes:
       - ../openneuro/app:/srv/crn-app
-      - app_node_modules:/srv/crn-app/node_modules
+      - yarn_cache:/root/.cache
       - project:/srv/crn-app/dist
+    tmpfs:
+      - /srv/crn-app/node_modules
 
   # crn core (bids-core)
   core:
@@ -29,19 +29,23 @@ services:
     command: bash -c "yarn install && node /srv/crn-server/index.js"
     volumes:
       - ../openneuro/server:/srv/crn-server
-      - server_node_modules:/srv/crn-server/node_modules
+      - yarn_cache:/root/.cache
       - ./server/client.config.js:/srv/crn-server/client.config.js:rw
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
+    tmpfs:
+      - /srv/crn-server/node_modules
 
   worker:
     command: bash -c "yarn install && node /srv/crn-server/worker.js"
     volumes:
       - ../openneuro/server:/srv/crn-server
-      - worker_node_modules:/srv/crn-server/node_modules
+      - yarn_cache:/root/.cache
       - ./server/client.config.js:/srv/crn-server/client.config.js:rw
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
+    tmpfs:
+      - /srv/crn-server/node_modules
 
   # nginx - static file serving and service proxy
   nginx:
