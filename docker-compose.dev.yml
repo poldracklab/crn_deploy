@@ -10,7 +10,7 @@ services:
   # web app bundle build
   app:
     image: openneuro/app:${CRN_APP_TAG}
-    command: bash -c "yarn install && gulp --env=dev"
+    command: bash -c "yarn install && yarn start"
     volumes:
       - ../openneuro/app:/srv/crn-app
       - yarn_cache:/root/.cache
@@ -26,6 +26,7 @@ services:
 
   # crn node server
   server:
+    command: bash -c "yarn install && node /srv/crn-server/index.js"
     volumes:
       - ../openneuro/server:/srv/crn-server
       - yarn_cache:/root/.cache
@@ -36,6 +37,7 @@ services:
       - /srv/crn-server/node_modules
 
   worker:
+    command: bash -c "yarn install && node /srv/crn-server/worker.js"
     volumes:
       - ../openneuro/server:/srv/crn-server
       - yarn_cache:/root/.cache
