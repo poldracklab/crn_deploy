@@ -10,13 +10,13 @@ services:
   # web app bundle build
   app:
     image: openneuro/app:${CRN_APP_TAG}
-    command: bash -c "yarn install && yarn start"
+    command: bash -c "yarn install --pure-lockfile && yarn start"
     volumes:
       - ../openneuro/app:/srv/crn-app
       - yarn_cache:/root/.cache
       - project:/srv/crn-app/dist
     tmpfs:
-      - /srv/crn-app/node_modules
+      - /srv/crn-app/node_modules:exec
 
   # crn core (bids-core)
   core:
@@ -34,7 +34,7 @@ services:
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
     tmpfs:
-      - /srv/crn-server/node_modules
+      - /srv/crn-server/node_modules:exec
 
   worker:
     command: bash -c "yarn install && node /srv/crn-server/worker.js"
@@ -45,7 +45,7 @@ services:
       - ${PERSISTENT_DIR}/bids-core/persistent/data:/srv/bids-core/persistent/data
       - ${PERSISTENT_DIR}/crn-server/persistent:/srv/crn-server/persistent
     tmpfs:
-      - /srv/crn-server/node_modules
+      - /srv/crn-server/node_modules:exec
 
   # nginx - static file serving and service proxy
   nginx:
