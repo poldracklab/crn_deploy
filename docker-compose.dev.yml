@@ -10,7 +10,7 @@ services:
   # web app bundle build
   app:
     image: openneuro/app:${CRN_APP_TAG}
-    command: bash -c "yarn install --pure-lockfile && yarn start"
+    command: sh -c "yarn install --pure-lockfile && yarn start"
     volumes:
       - ../openneuro/app:/srv/crn-app
       - yarn_cache:/root/.cache
