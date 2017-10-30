@@ -26,7 +26,7 @@ services:
 
   # crn node server
   server:
-    command: bash -c "yarn install && node /srv/crn-server/index.js"
+    command: sh -c "yarn install && node /srv/crn-server/index.js"
     volumes:
       - ../openneuro/server:/srv/crn-server
       - yarn_cache:/root/.cache
@@ -37,7 +37,7 @@ services:
       - /srv/crn-server/node_modules:exec
 
   worker:
-    command: bash -c "yarn install && node /srv/crn-server/worker.js"
+    command: sh -c "yarn install  && node /srv/crn-server/worker.js"
     volumes:
       - ../openneuro/server:/srv/crn-server
       - yarn_cache:/root/.cache
