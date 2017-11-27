@@ -12,11 +12,11 @@ services:
     image: openneuro/app:${CRN_APP_TAG}
     command: sh -c "yarn install --pure-lockfile && yarn start"
     volumes:
-      - ../openneuro/app:/srv/crn-app
+      - ../openneuro:/srv
       - yarn_cache:/root/.cache
-      - project:/srv/crn-app/dist
+      - project:/srv/app/dist
     tmpfs:
-      - /srv/crn-app/node_modules:exec
+      - /srv/app/node_modules:exec
 
   # crn core (bids-core)
   core:
